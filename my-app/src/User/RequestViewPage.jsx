@@ -16,19 +16,22 @@ class RequestViewPage extends React.Component
 
    changeCompleted = (flag) => {
       if(flag === "yes"){
-          message.success("Congratulations! Your request is completed.")
-         /// this.setState({color4:"green"});
+
+         /// this.setState({color4:"green"}); tokenId
+         console.log("Token",this.state.token,this.props.tokenCode);
             this.setState({loadButton:true}, ()=>{
                   axios.get('/UserHome/completeRequest', {
                           params: {
-                             tokenId:this.state.token,
+                             tokenId:this.state.token
 
                           }
                         })
                         .then(res=>{
 
                           console.log("Status : ",res.data);
+                          message.success("Congratulations! Your request is completed.")
                           this.setState({loadButton:false,color4:"green"});
+
 
                         })
 
@@ -62,7 +65,7 @@ class RequestViewPage extends React.Component
             <p>Our helper is on the way. (S)he will get in touch with you.</p>
             <p><b>Address:</b> {this.props.address}</p>
             </Timeline.Item>
-             <Timeline.Item color={this.state.color4} align="left"><b>Request Completed</b>
+             <Timeline.Item color={this.state.color4} align="left"><b>Request Completed ?</b>
              <Button type="primary" htmlType="submit" style={{background:"green",marginRight:"2%",borderColor:"green"}} onClick={(e)=>{this.changeCompleted("yes")}}>Yes</Button>
              <Button type="primary" htmlType="submit" style={{background:"#8B0000",borderColor:"#8B0000"}} onClick={(e)=>{this.changeCompleted("no")}}>No</Button>
              </Timeline.Item>

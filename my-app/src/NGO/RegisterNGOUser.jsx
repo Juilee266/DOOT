@@ -134,7 +134,7 @@ onFinish = values => {
                                  </Col>
 
                                  <Col>
-                                   <Checkbox value="Help with Abuse " style={{ lineHeight: '32px' }}>
+                                   <Checkbox value="Help with Abuse" style={{ lineHeight: '32px' }}>
                                        Help With Abuse
                                     </Checkbox>
                                  </Col>

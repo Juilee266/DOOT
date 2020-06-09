@@ -28,7 +28,7 @@
 		    catstr = catstr + "''"+cat[0]+"''";
 		    for(int i=1;i<cat.length;i++)
 		    {
-		    	catstr += ",''"+cat[i]+"''";
+		    	catstr += ",''"+cat[i].trim()+"''";
 		    }
 		
 		    String certificate="Certificate.pdf";
@@ -42,7 +42,7 @@
 		    citystr = citystr + "''"+city[0]+"''";
 		    for(int i=1;i<city.length;i++)
 		    {
-		    	citystr += ",''"+city[i]+"''";
+		    	citystr += ",''"+city[i].trim()+"''";
 		    }
 
 		    String query="insert into ngo_table(name,username,password,categories,addressl1,addressl2,city,state,pincode,contactNumber,emailid,cities_in_range,certificate,bank_acc_no,ifsc_code) "

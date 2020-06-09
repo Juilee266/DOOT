@@ -50,6 +50,7 @@ public class NGOHomePageController {
 		//cities = "'pune','mumbai'";
 		//categories= "'food','shelter'";
 		
+		
         String sqlSelect = "SELECT * FROM request_table where city in ("+cities+") and category in ("+categories+") and status='PENDING'";
         System.out.println(sqlSelect);
         List<Request> listPending = jdbcTemplate.query(sqlSelect, new RequestRowMapper());

@@ -31,15 +31,15 @@ class TokenEnterPage extends React.Component
                   let address_ = res.data.addressL1 + " , " + res.data.addressL2 + " ," + res.data.region + " ," +
                                 res.data.city + " , "+res.data.state + " ," + res.data.pinCode;
                if(res.data.status=="PENDING")
-                 this.setState({color1:"green",color2:"red",color3:"red",color4:"red",loadButton:false,NextPage:true,description:res.data.description,address:address_,tokenCode:values.tokenCode});
+                 this.setState({color1:"green",color2:"red",color3:"red",color4:"red",loadButton:false,NextPage:true,description:res.data.description,address:address_,tokenCode:values.tokencode});
                 else if(res.data.status=="IN PROGRESS")
-                 this.setState({color1:"green",color2:"green",color3:"red",color4:"red",loadButton:false,NextPage:true,description:res.data.description,address:address_,tokenCode:values.tokenCode});
+                 this.setState({color1:"green",color2:"green",color3:"red",color4:"red",loadButton:false,NextPage:true,description:res.data.description,address:address_,tokenCode:values.tokencode});
                 else if(res.data.status=="OUT FOR DELIVERY")
 
-                 this.setState({color1:"green",color2:"green",color3:"green",color4:"red",loadButton:false,NextPage:true,description:res.data.description,address:address_,tokenCode:values.tokenCode});
+                 this.setState({color1:"green",color2:"green",color3:"green",color4:"red",loadButton:false,NextPage:true,description:res.data.description,address:address_,tokenCode:values.tokencode});
 
                 else if(res.data.status=="COMPLETED")
-                  this.setState({color1:"green",color2:"green",color3:"green",color4:"green",loadButton:false,NextPage:true,description:res.data.description,address:address_,tokenCode:values.tokenCode});
+                  this.setState({color1:"green",color2:"green",color3:"green",color4:"green",loadButton:false,NextPage:true,description:res.data.description,address:address_,tokenCode:values.tokencode});
               })
 
 
