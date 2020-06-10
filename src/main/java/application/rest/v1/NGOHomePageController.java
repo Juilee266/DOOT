@@ -10,11 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import model.Event;
+import model.NGODetails;
 import model.Request;
 import okhttp3.internal.http.HttpHeaders;
 
@@ -79,7 +82,27 @@ public class NGOHomePageController {
 		return "SUCCESS";
 		
 	}
-
+	@RequestMapping(value="/createEvent",method=RequestMethod.POST)
+	public String createRequest(@RequestBody Event event)
+	                                                throws Exception {
+		
+	 
+		 String query="insert into event_table(ngoId,description,startTime,endTime,addressl1,addressl2,city,state,pincode,contactNumber) "
+					+ "values(" + event.getNgoId()+","+
+					"'" + event.getDescription()+"',"+
+					 "'" +event.getStartTime()+"',"+
+					 "'" + event.getEndTime()+"',"+
+					 "'" + event.getAddressL1()+"',"+
+					 "'" + event.getAddressL2()+"',"+
+					 "'" + event.getCity()+"',"+
+					 "'" + event.getState()+"',"+
+					 "'" + event.getPinCode()+"',"+
+					 "'" + event.getContactNumber()+"')";
+		 jdbcTemplate.update(query);
+		
+		return "SUCCESS";
+	}
+	
 }
 class RequestForNGO
 {
