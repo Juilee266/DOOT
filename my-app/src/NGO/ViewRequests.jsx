@@ -3,6 +3,7 @@ import { Table ,Button , Row ,Col,Space,message,Spin} from 'antd';
 import { LoadingOutlined} from '@ant-design/icons';
 import axios from "axios";
 
+import PostEvent from './PostEvent';
 //2pfEMy_1TaZnSTacRpUC
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 class ViewRequests extends React.Component
@@ -115,7 +116,7 @@ class ViewRequests extends React.Component
       ];
 
 // this.state = {data:this.data_,dataA:this.dataAccepted}
-this.state = {data:props.data1,dataA:props.data2,ngoId:props.ngoId,loadButton:false}
+this.state = {data:props.data1,dataA:props.data2,ngoId:props.ngoId,loadButton:false,postButton:false}
  }
 
  onDeleteAddRow = (key,record,e) =>
@@ -230,16 +231,23 @@ onDeleteRow2 = (key,e) =>
     console.log("Columns",this.columns);
   }
 
+  gotoEvent()
+  {
+    this.setState({postButton:true});
+  }
+
  render()
  {
          if(this.state.loadButton==true)
            return <Spin indicator={antIcon} />;
 
+         if(this.state.postButton==true)
+         return <PostEvent id = {this.state.ngoId}/>;
    return(<div>
 
         {this.CreateFilters(this.state.data)}
 
-       <Button type="primary" style={{marginLeft:"85%",marginRight:"10%"}}><a href="/Post">Post an Event</a></Button>
+       <Button type="primary" style={{marginLeft:"85%",marginRight:"10%"}} onClick={(e)=>{this.gotoEvent(e)}}>Post an Event</Button>
        <div style={{fontSize:"15px"}}>Incoming Requests :</div><br/>
      <Table
         columns={this.columns}
