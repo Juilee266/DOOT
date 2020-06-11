@@ -1,7 +1,6 @@
 package model;
 
-public class Event {
-
+public class Event2 {
 	int ngoId;
 	String name;
 	String description;
@@ -13,19 +12,17 @@ public class Event {
 	String state;
 	String pinCode;
 	String contactNumber;
-	
-	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public int getNgoId() {
 		return ngoId;
 	}
 	public void setNgoId(int ngoId) {
 		this.ngoId = ngoId;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getDescription() {
 		return description;
@@ -36,23 +33,13 @@ public class Event {
 	public String getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(String startTime2) {
-		 String startTime = ""; 
-		 String[] st = startTime2.split("T");
-		 startTime  = st[0] + " ,";
-		 String[] st2 = st[1].split(":");
-		 startTime += st2[0]+ ":" + st2[1];
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 	public String getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(String endTime2) {
-		 String endTime = ""; 
-		 String[] et = endTime2.split("T");
-		 endTime  = et[0] + " ,";
-		 String[] et2 = et[1].split(":");
-		 endTime += et2[0]+ ":" + et2[1];
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 	public String getAddressL1() {
@@ -92,4 +79,5 @@ public class Event {
 		this.contactNumber = contactNumber;
 	}
 	
+
 }

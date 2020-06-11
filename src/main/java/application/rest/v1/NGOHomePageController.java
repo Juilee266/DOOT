@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import model.Event;
+import model.Event2;
 import model.NGODetails;
 import model.Request;
 import okhttp3.internal.http.HttpHeaders;
@@ -83,8 +84,9 @@ public class NGOHomePageController {
 		
 	}
 	@RequestMapping(value="/createEvent",method=RequestMethod.POST)
-	public String createRequest(@RequestBody Event event)
+	public String createRequest(@RequestBody Event2 event)
 	                                                throws Exception {
+		
 		
 	 
 		 String query="insert into event_table(ngoId,description,startTime,endTime,addressl1,addressl2,city,state,pincode,contactNumber) "

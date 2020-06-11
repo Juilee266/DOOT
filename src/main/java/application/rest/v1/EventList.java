@@ -20,7 +20,7 @@ import model.Event;
 public class EventList {
 	@RequestMapping(value = "/getEventsForCity", method = RequestMethod.GET)
 	public ResponseEntity<List<Event>> getTablesForNGO(@RequestParam("city") String city, HttpServletRequest request) {
-		String query = "select * from event_table where city= '"+city+"'";
+		String query = "select n.name , e.*  from event_table e,ngo_table n where e.city= '"+city+"'"+" and e.ngoId = n.ngoId ";
 		List<Event> evList = jdbcTemplate.query(query, new EventRowMapper());
 		return new ResponseEntity<List<Event>>(evList, HttpStatus.OK);
 	}

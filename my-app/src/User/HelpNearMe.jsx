@@ -1,56 +1,22 @@
-import { Table,Form,Button,Input, Select } from 'antd';
+import { Table,Form,Button,Input, Select,Spin } from 'antd';
 import React from "react";
-const { Option } = Select;
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    width: 150,
-  },
-  {
-    title: 'Timing',
-    dataIndex: 'timing',
-    width: 150,
-  },
-  {
-    title: 'Description',
-    dataIndex: 'description',
-  },
-];
+import {LoadingOutlined} from '@ant-design/icons'
+import axios from "axios";
 
-const data = [];
-    data.push({
-        key: 0,
-        name: `Goonj Foundation`,
-        timing: `2018-05-07 16:00`,
-        description: `Food Distribution Outside Vihir Ground, MG Road`,
-      });
-      data.push({
-          key: 1,
-          name: `We Care`,
-          timing: `2018-05-07 18:00`,
-          description: `Online Webinar about Mental Health on www.wecare.com`,
-        });
-        data.push({
-            key: 2,
-            name: `Teach For India`,
-            timing: `2018-05-08 1:00`,
-            description: `Introduction to TFI's plan for under-privileged student's education at FC College, Deccan Road `,
-          });
-          data.push({
-              key: 3,
-              name: `Sonu Sood`,
-              timing: `2018-05-10 16:00`,
-              description: `Registration for travel of Migrant workers at Wageshwar Temple, Wagholi`,
-            });
-for (let i = 0; i < 100; i++) {
-  data.push({
-    key: i,
-    name: `Edward King ${i}`,
-    timing: `2018-02-28 16:00`,
-    description: `London, Park Lane no. ${i}`,
-  });
-}
+const { Option } = Select;
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+const columns = [
+  { title: 'NGO Name', dataIndex: 'name', key: 'name' },
+   {
+         title: 'Timings',
+         dataIndex: '',
+         key: 'timings',
+         render: (record) => <div><b>Start Time: </b>{record.startTime}<br/><b>End Time :</b>{record.endTime}</div>,
+    },
+   { title: 'Description', dataIndex: 'description', key: 'description' } ,
+   { title: 'Contact Number', dataIndex: 'contact', key: 'contact' },
+   { title: 'Address', dataIndex: 'address', key: 'address' }
+];
 
 function onChange(value) {
   console.log(`selected ${value}`);
@@ -73,17 +39,53 @@ class HelpNearMe extends React.Component{
  constructor()
  {
    super();
-   this.state = {showFlag:false};
+   this.state = {showFlag:false,loadButton:false,data:null};
  }
 
- showEvents = () => {
-      this.setState({showFlag:true});
+ showEvents = (values) => {
+     // this.setState({showFlag:true});
+         this.setState({loadButton:true}, ()=>{
+          axios.get('/Events/getEventsForCity', {
+                  params: {
+                     city: values.city
+                  }
+                })
+                .then(res=>{
+
+                  console.log("Data : ",res.data);
+                  let arr = res.data;
+                  let list_ = [];
+                  for(let i=0;i<arr.length;i++)
+                  {
+                    let obj = arr[i];
+                    let obj2 =
+                    {
+                       name: obj.name,
+                       startTime : obj.startTime,
+                       endTime : obj.endTime,
+                       description : obj.description,
+                       address : obj.addressL1 + " ," + obj.addressL2 + " ," + obj.city + " ," + obj.state + " ," + obj.pinCode,
+                       contact: obj.contactNumber
+                    };
+                    console.log("Object:",obj2);
+                    list_.push(obj2);
+                  }
+                  console.log(list_);
+                  this.setState({loadButton:false,showFlag:true,data:list_});
+
+                })
+
+
+             })
     };
 
     render(){
+
+    if(this.state.loadButton==true)
+                 return <Spin indicator={antIcon} />;
  if(this.state.showFlag === true){
     return(
-     <Table columns={columns} dataSource={data} pagination={{ pageSize: 50 }} scroll={{ y: 240 }} />
+     <Table columns={columns} dataSource={this.state.data} pagination={{ pageSize: 50 }} scroll={{ y: 240 }} />
        );
      }
  return(
@@ -112,9 +114,9 @@ class HelpNearMe extends React.Component{
                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                }
              >
-               <Option value="jack">mumbai</Option>
-               <Option value="lucy">nashik</Option>
-               <Option value="tom">pune</Option>
+               <Option value="mumbai">Mumbai</Option>
+               <Option value="nashik">Nashik</Option>
+               <Option value="pune">Pune</Option>
              </Select>
            </Form.Item>
 ​
